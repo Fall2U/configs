@@ -1,0 +1,152 @@
+proxy-providers:
+  provider:
+    url: ""
+    type: http
+    interval: 86400
+    health-check: {enable: true,url: "https://www.gstatic.com/generate_204",interval: 300}
+
+mixed-port: 7890
+ipv6: true
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+external-controller: '127.0.0.1:9090'
+secret: 
+find-process-mode: strict
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+
+tun:
+  enable: true
+  stack: system
+  dns-hijack:
+    - 'any:53'
+    - 'tcp://any:53'
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+
+hosts:
+  dns.google:
+    - 8.8.8.8
+    - 8.8.4.4
+    - 2001:4860:4860::8844
+    - 2001:4860:4860::8888
+  dns.alidns.com:
+    - 223.6.6.6
+    - 223.5.5.5
+    - 2400:3200::1
+    - 2400:3200:baba::1
+
+dns:
+  enable: true
+  cache-algorithm: arc
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.0/15
+  fake-ip-range6: 'fc00::/18'
+  fake-ip-filter:
+    - 'rule-set:fakeip_filter'
+    - 'rule-set:private'
+  nameserver:
+    - 'https://dns.google/dns-query#Proxy'
+  proxy-server-nameserver:
+    - 'https://dns.alidns.com/dns-query'
+  direct-nameserver:
+    - 'https://dns.alidns.com/dns-query'
+  nameserver-policy:
+    'rule-set:private':
+      - system
+    'rule-set:fakeip_filter':
+      - 'https://dns.alidns.com/dns-query'
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    include-all: true
+    exclude-type: direct
+  - name: GLOBAL
+    type: select
+    proxies:
+      - Proxy
+rules:
+  - 'RULE-SET,fakeip_filter,DIRECT'
+  - 'RULE-SET,private,DIRECT'
+  - 'RULE-SET,private_ip,DIRECT,no-resolve'
+  - 'RULE-SET,reject,REJECT'
+  - 'RULE-SET,google,Proxy'
+  - 'RULE-SET,google_ip,Proxy,no-resolve'
+  - 'RULE-SET,telegram,Proxy'
+  - 'RULE-SET,telegram_ip,Proxy,no-resolve'
+  - 'RULE-SET,github,Proxy'
+  - 'RULE-SET,steam,Proxy'
+  - 'RULE-SET,proxy,Proxy'
+  - 'RULE-SET,cn,DIRECT'
+  - 'RULE-SET,cn_ip,DIRECT'
+  - 'MATCH,Proxy'
+
+rule-anchor:
+  ip:
+    type: http
+    interval: 86400
+    behavior: ipcidr
+    format: mrs
+  domain:
+    type: http
+    interval: 86400
+    behavior: domain
+    format: mrs
+
+rule-providers:
+  fakeip_filter:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/fakeip-filter.mrs
+  private:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
+  reject:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
+  google:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
+  telegram:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
+  github:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
+  steam:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs
+  cn:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs
+  proxy:
+    <<: *domain
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs
+  private_ip:
+    <<: *ip
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs
+  cn_ip:
+    <<: *ip
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
+  google_ip:
+    <<: *ip
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs
+  telegram_ip:
+    <<: *ip
+    url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs
