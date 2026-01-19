@@ -28,6 +28,7 @@ const main = (config) => {
   config["tun"] = {
     "enable": true,
     "stack": "system",
+    "device": "mihomo_tunnel",
     "dns-hijack": [
       "any:53",
       "tcp://any:53"
