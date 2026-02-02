@@ -52,13 +52,6 @@
         "server": "fakeip"
       },
       {
-        "query_type": [
-          "HTTPS",
-          "SVCB"
-        ],
-        "action": "reject"
-      },
-      {
         "rule_set": [
           "private"
         ],
@@ -162,25 +155,11 @@
     "rules": [
       {
         "action": "sniff",
-        "timeout": "500ms",
+        "timeout": "300ms",
         "sniffer": [
           "http",
           "tls",
-          "dns"
-        ],
-        "type": "logical",
-        "mode": "or",
-        "rules": [
-          {
-            "ip_is_private": true,
-            "invert": true
-          },
-          {
-            "ip_cidr": [
-              "198.18.0.0/15",
-              "fc00::/18"
-            ]
-          }
+          "quic"
         ]
       },
       {
@@ -198,17 +177,25 @@
       },
       {
         "type": "logical",
-        "mode": "or",
+        "mode": "and",
         "rules": [
           {
-            "port": 853
-          },
-          {
             "network": "udp",
-            "port": 443
+            "port": [
+              443,
+              8443
+            ]
           },
           {
-            "protocol": "stun"
+            "rule_set": [
+              "cn",
+              "cn_ip"
+            ],
+            "invert": true
+          },
+          {
+            "ip_is_private": true,
+            "invert": true
           }
         ],
         "action": "reject"
