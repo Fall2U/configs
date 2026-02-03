@@ -99,6 +99,7 @@ const main = (config) => {
   ];
 
   config["rules"] = [
+    "AND,((NETWORK,UDP),(OR,((DST-PORT,443),(DST-PORT,8443))),(OR,((NOT,((RULE-SET,cn))),(NOT,((RULE-SET,cn_ip)))))),REJECT",
     "RULE-SET,fakeip_filter,DIRECT",
     "RULE-SET,private,DIRECT",
     "RULE-SET,private_ip,DIRECT,no-resolve",
