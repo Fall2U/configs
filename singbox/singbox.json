@@ -177,27 +177,6 @@
         "action": "hijack-dns"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "protocol": "quic",
-          },
-          {
-            "rule_set": [
-              "cn",
-              "cn_ip"
-            ],
-            "invert": true
-          },
-          {
-            "ip_is_private": true,
-            "invert": true
-          }
-        ],
-        "action": "reject"
-      },
-      {
         "rule_set": [
           "fakeip_filter",
           "private"
@@ -219,6 +198,26 @@
       {
         "action": "reject",
         "rule_set": "reject"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "protocol": "quic",
+          },
+          {
+            "rule_set": [
+              "cn_ip"
+            ],
+            "invert": true
+          },
+          {
+            "ip_is_private": true,
+            "invert": true
+          }
+        ],
+        "action": "reject"
       },
       {
         "rule_set": [
