@@ -208,6 +208,7 @@
           },
           {
             "rule_set": [
+              "cn",
               "cn_ip"
             ],
             "invert": true
