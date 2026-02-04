@@ -69,7 +69,7 @@
         "query_type": [
           "HTTPS",
           "SVCB"
-        ]
+        ],
         "action": "reject"
       },
       {
