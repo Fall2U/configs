@@ -204,7 +204,7 @@
         "mode": "and",
         "rules": [
           {
-            "protocol": "quic",
+            "protocol": "quic"
           },
           {
             "rule_set": [
