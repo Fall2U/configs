@@ -159,7 +159,8 @@
         "sniffer": [
           "http",
           "tls",
-          "quic"
+          "quic",
+          "dns"
         ]
       },
       {
@@ -180,11 +181,7 @@
         "mode": "and",
         "rules": [
           {
-            "network": "udp",
-            "port": [
-              443,
-              8443
-            ]
+            "protocol": "quic",
           },
           {
             "rule_set": [
