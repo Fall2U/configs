@@ -66,6 +66,13 @@
         "strategy": "ipv4_only"
       },
       {
+        "query_type": [
+          "HTTPS",
+          "SVCB"
+        ]
+        "action": "reject"
+      },
+      {
         "rule_set": [
           "google",
           "telegram",
