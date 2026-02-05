@@ -61,8 +61,8 @@ dns:
   fake-ip-range: 198.18.0.0/15
   fake-ip-range6: 'fc00::/18'
   fake-ip-filter:
-    - 'RULE-SET,fakeip_filter,real-ip'
     - 'RULE-SET,private,real-ip'
+    - 'RULE-SET,fakeip_filter,real-ip'
     - 'MATCH,fake-ip'
   nameserver:
     - 'https://dns.google/dns-query#Proxy'
