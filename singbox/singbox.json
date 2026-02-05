@@ -50,6 +50,10 @@
         "domain_resolver": "dns_host"
       },
       {
+        "tag": "dns_local",
+        "type": "local"
+      },
+      {
         "tag": "fakeip",
         "type": "fakeip",
         "inet4_range": "198.18.0.0/15",
