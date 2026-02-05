@@ -58,11 +58,13 @@ const main = (config) => {
     "cache-algorithm": "arc",
     "ipv6": true,
     "enhanced-mode": "fake-ip",
+    "fake-ip-filter-mode": rule
     "fake-ip-range": "198.18.0.0/15",
     "fake-ip-range6": "fc00::/18",
     "fake-ip-filter": [
-      "rule-set:fakeip_filter",
-      "rule-set:private"
+      "RULE-SET,private,real-ip",
+      "RULE-SET,fakeip-filter,real-ip",
+      "MATCH,fake-ip"
     ],
     "nameserver": [
       "https://dns.google/dns-query#Proxy"
