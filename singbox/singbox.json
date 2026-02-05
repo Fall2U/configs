@@ -19,21 +19,35 @@
   "dns": {
     "servers": [
       {
-        "tag": "dns_local",
-        "type": "local"
+        "tag": "dns_host",
+        "type": "hosts",
+        "predefined": {
+          "doh.alidns.com": [
+            "223.6.6.6",
+            "223.5.5.5",
+            "2400:3200::1",
+            "2400:3200:baba::1"
+          ],
+          "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4",
+            "2001:4860:4860::8888",
+            "2001:4860:4860::8844"
+          ]
+        }
       },
       {
         "tag": "dns_proxy",
         "type": "https",
         "server": "dns.google",
         "detour": "Proxy",
-        "domain_resolver": "dns_direct"
+        "domain_resolver": "dns_host"
       },
       {
         "tag": "dns_direct",
         "type": "https",
         "server": "dns.alidns.com",
-        "domain_resolver": "dns_local"
+        "domain_resolver": "dns_host"
       },
       {
         "tag": "fakeip",
