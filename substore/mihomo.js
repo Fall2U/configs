@@ -58,7 +58,7 @@ const main = (config) => {
     "cache-algorithm": "arc",
     "ipv6": true,
     "enhanced-mode": "fake-ip",
-    "fake-ip-filter-mode": rule
+    "fake-ip-filter-mode": rule,
     "fake-ip-range": "198.18.0.0/15",
     "fake-ip-range6": "fc00::/18",
     "fake-ip-filter": [
