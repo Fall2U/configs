@@ -63,7 +63,7 @@ const main = (config) => {
     "fake-ip-range6": "fc00::/18",
     "fake-ip-filter": [
       "RULE-SET,private,real-ip",
-      "RULE-SET,fakeip-filter,real-ip",
+      "RULE-SET,fakeip_filter,real-ip",
       "MATCH,fake-ip"
     ],
     "nameserver": [
