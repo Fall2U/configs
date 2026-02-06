@@ -24,15 +24,11 @@
         "predefined": {
           "dns.alidns.com": [
             "223.6.6.6",
-            "223.5.5.5",
-            "2400:3200::1",
-            "2400:3200:baba::1"
+            "223.5.5.5"
           ],
           "dns.google": [
             "8.8.8.8",
-            "8.8.4.4",
-            "2001:4860:4860::8888",
-            "2001:4860:4860::8844"
+            "8.8.4.4"
           ]
         }
       },
@@ -56,8 +52,7 @@
       {
         "tag": "fakeip",
         "type": "fakeip",
-        "inet4_range": "198.18.0.0/15",
-        "inet6_range": "fc00::/18"
+        "inet4_range": "198.18.0.0/15"
       }
     ],
     "rules": [
@@ -73,15 +68,13 @@
         "rule_set": [
           "private"
         ],
-        "server": "dns_local",
-        "strategy": "ipv4_only"
+        "server": "dns_local"
       },
       {
         "rule_set": [
           "fakeip_filter"
         ],
-        "server": "dns_direct",
-        "strategy": "ipv4_only"
+        "server": "dns_direct"
       },
       {
         "query_type": [
@@ -104,8 +97,7 @@
         "rule_set": [
           "cn"
         ],
-        "server": "dns_direct",
-        "strategy": "ipv4_only"
+        "server": "dns_direct"
       },
       {
         "type": "logical",
@@ -124,23 +116,22 @@
       },
       {
         "query_type": [
-          "A",
-          "AAAA"
+          "A"
         ],
         "rewrite_ttl": 1,
         "server": "fakeip"
       }
     ],
     "independent_cache": true,
-    "final": "dns_proxy"
+    "final": "dns_proxy",
+    "strategy": "ipv4_only"
   },
   "inbounds": [
     {
       "type": "tun",
       "tag": "singbox_tunnel",
       "address": [
-        "172.19.0.0/30",
-        "fdfe:dcba:9876::0/126"
+        "172.19.0.0/30"
       ],
       "auto_route": true,
       "strict_route": true,
