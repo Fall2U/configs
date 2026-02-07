@@ -84,13 +84,10 @@
         "action": "reject"
       },
       {
-        "rule_set": [
-          "google",
-          "telegram",
-          "github",
-          "steam",
-          "proxy"
+        "query_type": [
+          "A"
         ],
+        "rewrite_ttl": 1,
         "server": "fakeip"
       },
       {
@@ -98,20 +95,6 @@
           "cn"
         ],
         "server": "dns_direct"
-      },
-      {
-        "rule_set": [
-          "cn_ip"
-        ],
-        "server": "dns_proxy",
-        "client_subnet": "114.114.114.114/24"
-      },
-      {
-        "query_type": [
-          "A"
-        ],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
       }
     ],
     "independent_cache": true,
@@ -242,7 +225,17 @@
       },
       {
         "rule_set": [
-          "cn",
+          "cn"
+        ],
+        "outbound": "Direct"
+      },
+      {
+        "action": "resolve",
+        "match_only": true,
+        "server": "dns_proxy"
+      },
+      {
+        "rule_set": [
           "cn_ip"
         ],
         "outbound": "Direct"
