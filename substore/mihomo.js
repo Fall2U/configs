@@ -1,7 +1,7 @@
 const main = (config) => {
   Object.assign(config, {
     "mixed-port": 7890,
-    "ipv6": true,
+    "ipv6": false,
     "allow-lan": true,
     "unified-delay": true,
     "tcp-concurrent": true,
@@ -41,26 +41,21 @@ const main = (config) => {
   config["hosts"] = {
     "dns.google": [
       "8.8.8.8",
-      "8.8.4.4",
-      "2001:4860:4860::8844",
-      "2001:4860:4860::8888"
+      "8.8.4.4"
     ],
     "dns.alidns.com": [
       "223.6.6.6",
-      "223.5.5.5",
-      "2400:3200::1",
-      "2400:3200:baba::1"
+      "223.5.5.5"
     ]
   };
 
   config["dns"] = {
     "enable": true,
     "cache-algorithm": "arc",
-    "ipv6": true,
+    "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-filter-mode": "rule",
     "fake-ip-range": "198.18.0.0/15",
-    "fake-ip-range6": "fc00::/18",
     "fake-ip-filter": [
       "RULE-SET,private,real-ip",
       "RULE-SET,fakeip_filter,real-ip",
