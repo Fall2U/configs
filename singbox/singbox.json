@@ -168,15 +168,21 @@
         "action": "hijack-dns"
       },
       {
+        "ip_is_private": true,
+        "outbound": "Direct"
+      },
+      {
         "rule_set": [
-          "fakeip_filter",
-          "private"
+          "private",
+          "fakeip_filter"
         ],
         "outbound": "Direct"
       },
       {
-        "ip_is_private": true,
-        "outbound": "Direct"
+        "rule_set": [
+          "reject"
+        ],
+        "action": "reject"
       },
       {
         "clash_mode": "Global",
@@ -185,10 +191,6 @@
       {
         "clash_mode": "Direct",
         "outbound": "Direct"
-      },
-      {
-        "action": "reject",
-        "rule_set": "reject"
       },
       {
         "type": "logical",
